@@ -6,7 +6,7 @@ export default class ConnectionManager {
     this.socketId = "";
   }
 
-  configureEvents() {
+  configureEvents(onProgress) {
     this.ioClient.on("connect", this.onConnect.bind(this));
     this.ioClient.on("file-upload", onProgress);
   }
@@ -14,6 +14,18 @@ export default class ConnectionManager {
   onConnect(msg) {
     console.log("connected!", this.ioClient.id);
     this.socketId = this.ioClient.id;
+  }
+
+  async uploadFile(file) {
+    const formData = new FormData();
+    formData.append("files", file);
+
+    const response = await fetch(`${this.apiUrl}?socketId=${this.socketId}`, {
+      method: "POST",
+      body: formData,
+    });
+
+    return response.json();
   }
 
   async currentFiles() {

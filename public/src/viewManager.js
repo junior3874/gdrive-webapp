@@ -12,10 +12,14 @@ export default class View {
       minute: "2-digit",
     });
   }
+  configureOnFileChange(fn) {
+    this.fileElem.onchange = (e) => fn(e.target.files);
+  }
 
   configureFileBtnClick() {
     this.newFileBtn.onclick = () => this.fileElem.click();
   }
+
   getIcon(file) {
     return file.match(/\.mp4/i)
       ? "movie"
@@ -23,6 +27,7 @@ export default class View {
       ? "image"
       : "content_copy";
   }
+
   makeIcon(file) {
     const icon = this.getIcon(file);
     const colors = {
@@ -33,6 +38,7 @@ export default class View {
 
     return `<i class="material-icons ${colors[icon]} left">${icon}</i>`;
   }
+
   updateCurrentFiles(files) {
     const template = (item) => `
       <tr>
