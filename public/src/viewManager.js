@@ -1,8 +1,21 @@
 export default class View {
   constructor() {
     this.tbody = document.getElementById("tbody");
+    this.newFileBtn = document.getElementById("newFileBtn");
+    this.fileElem = document.getElementById("fileElem");
+    this.formatter = new Intl.DateTimeFormat("pt", {
+      locale: "pt-br",
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   }
 
+  configureFileBtnClick() {
+    this.newFileBtn.onclick = () => this.fileElem.click();
+  }
   getIcon(file) {
     return file.match(/\.mp4/i)
       ? "movie"
@@ -24,9 +37,9 @@ export default class View {
     const template = (item) => `
       <tr>
         <td>${this.makeIcon(item.file)} ${item.file}</td>
-        <td>system_user</td>
-        <td>27 de agosto de 2021 14:10</td>
-        <td>65.6 GB</td>
+        <td>${item.owner}</td>
+        <td>${this.formatter.format(new Date(item.lastModified))}</td>
+        <td>${item.size}</td>
       </tr>
     `;
 

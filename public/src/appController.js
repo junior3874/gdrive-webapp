@@ -5,6 +5,7 @@ export default class AppController {
   }
 
   async initialize() {
+    this.viewManager.configureFileBtnClick();
     await this.updateCurrentFiles();
   }
 
