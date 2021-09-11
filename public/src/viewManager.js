@@ -3,6 +3,10 @@ export default class View {
     this.tbody = document.getElementById("tbody");
     this.newFileBtn = document.getElementById("newFileBtn");
     this.fileElem = document.getElementById("fileElem");
+    this.progressModal = document.getElementById("progress-modal");
+    this.progressBar = document.getElementById("progress-bar");
+    this.output = document.getElementById("output");
+
     this.formatter = new Intl.DateTimeFormat("pt", {
       locale: "pt-br",
       month: "long",
@@ -11,7 +15,34 @@ export default class View {
       hour: "2-digit",
       minute: "2-digit",
     });
+
+    this.modalInstance = {};
   }
+
+  configureModal() {
+    this.modalInstance = M.Modal.init(this.progressModal, {
+      opacity: 0,
+      dismissable: false,
+      onOpenEnd() {
+        this.$overlay[0].remove();
+      },
+    });
+  }
+
+  openModal() {
+    this.modalInstance.open();
+  }
+
+  closeModal() {
+    this.modalInstance.close();
+  }
+
+  updateStatus(size) {
+    this.output.innerHTML = `Ùpload in <b>${Math.floor(size)}%</b>`;
+
+    this.progressBar.value = size;
+  }
+
   configureOnFileChange(fn) {
     this.fileElem.onchange = (e) => fn(e.target.files);
   }
