@@ -14,8 +14,8 @@ Marque esse projeto com uma estrela 🌟
     - [X] Deve listar arquivos baixados
     - [x] Deve permitir fazer upload de arquivos de qualquer tamanho
     - [x] Deve ter função de upload via botão
-    - [] Deve exibir progresso de upload 
-    - [] Deve ter função de upload via drag and drop
+    - [X] Deve exibir progresso de upload 
+    - [X] Deve ter função de upload via drag and drop
 
 ## Créditos ao Layout <3
 
